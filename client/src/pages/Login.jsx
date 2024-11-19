@@ -2,6 +2,7 @@ import axios from "axios"
 import React, { useState } from "react"
 import { LOGIN_URL } from "../constants/endPoint"
 import { useNavigate } from "react-router-dom"
+import { useUserContext } from "../context/userContext"
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -9,11 +10,13 @@ const Login = () => {
     password: "123456",
   })
   const nav = useNavigate()
+  const { setUser } = useUserContext()
 
   const onSumbit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(LOGIN_URL, formValues)
+      const { data } = await axios.post(LOGIN_URL, formValues)
+      setUser(data)
       nav("/")
     } catch (error) {
       alert(error)

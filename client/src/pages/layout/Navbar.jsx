@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { useUserContext } from "../../context/userContext"
 const links = [
   {
     title: "home",
@@ -16,6 +17,7 @@ const links = [
 ]
 
 const NavBar = () => {
+  const { user } = useUserContext()
   return (
     <nav className="px-2 py-5 bg-blue-950 text-white flex items-center gap-2">
       {links.map((l) => (
@@ -23,6 +25,7 @@ const NavBar = () => {
           {l.title}
         </Link>
       ))}
+      {user && <p className="text-white">{user.name}</p>}
     </nav>
   )
 }

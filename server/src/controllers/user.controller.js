@@ -8,6 +8,9 @@ const userCtrl = {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
       const user = await User.create({ ...req.body, password: hashedPassword })
+
+      const getUser = await User.findOne({ _id: "..." })
+
       res.status(201).json({ ...user._doc, password: "*****" })
     } catch (error) {
       next(new AppError("user alrady exists", 400, error))
@@ -25,10 +28,13 @@ const userCtrl = {
       }
 
       const token = jwt.sign({ _id: user._id }, secretKey, { expiresIn: "30d" })
-      res.cookie("access_token", "Bearer " + token, { httpOnly: true })
+      res.cookie("access_token", "Bearer " + token, {
+        httpOnly: true,
+        secure: true,
+      })
       res.status(201).json({ ...user._doc, password: "****" })
     } catch (error) {
-      console.log(error)
+      next(new AppError(null, 401, error))
     }
   },
   async getInfo(req, res, next) {

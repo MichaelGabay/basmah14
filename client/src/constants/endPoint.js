@@ -3,5 +3,6 @@ const USER_URL = BASE_URL + "user/"
 
 const SIGNUP_URL = USER_URL + "signup"
 const LOGIN_URL = USER_URL + "login"
+const GET_INFO_URL = USER_URL + "info"
 
-export { SIGNUP_URL, LOGIN_URL }
+export { SIGNUP_URL, LOGIN_URL, GET_INFO_URL }
