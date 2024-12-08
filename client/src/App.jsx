@@ -10,6 +10,14 @@ axios.defaults.withCredentials = true
 
 function App() {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.status == 401) setUser(null)
+    }
+  )
 
   useEffect(() => {
     console.log(user)
@@ -21,10 +29,19 @@ function App() {
   const checkIfUserConnected = async () => {
     try {
       const { data } = await axios.get(GET_INFO_URL)
-
       setUser(data)
-    } catch (error) {}
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
   }
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+      </div>
+    )
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

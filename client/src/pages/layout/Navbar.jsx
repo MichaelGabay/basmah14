@@ -17,15 +17,21 @@ const links = [
 ]
 
 const NavBar = () => {
-  const { user } = useUserContext()
+  const { user, setUser } = useUserContext()
   return (
-    <nav className="px-2 py-5 bg-blue-950 text-white flex items-center gap-2">
-      {links.map((l) => (
-        <Link key={l.to} className="text-xl hover:text-yellow-400" to={l.to}>
-          {l.title}
-        </Link>
-      ))}
-      {user && <p className="text-white">{user.name}</p>}
+    <nav className="px-2 py-5 bg-blue-950 text-white flex">
+      <div className="flex items-center gap-2">
+        {links.map((l) => (
+          <Link key={l.to} className="text-xl hover:text-yellow-400" to={l.to}>
+            {l.title}
+          </Link>
+        ))}
+      </div>
+      <div className="grow flex justify-end mr-2">
+        <button onClick={() => setUser(null)} className="text-white text-xl">
+          logout
+        </button>
+      </div>
     </nav>
   )
 }

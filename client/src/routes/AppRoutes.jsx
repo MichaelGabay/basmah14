@@ -11,9 +11,13 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <NavBar />
+      {user ? (
+        <h1>user {user.name} is connected</h1>
+      ) : (
+        <h1>user is not connected</h1>
+      )}
       <Routes>
-        {user && <Route path="/" element={<Home />} />}
-
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<h1>404</h1>}></Route>
