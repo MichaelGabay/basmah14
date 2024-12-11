@@ -6,6 +6,7 @@ import AppRoutes from "./routes/AppRoutes"
 import axios from "axios"
 import { UserContext } from "./context/userContext"
 import { GET_INFO_URL } from "./constants/endPoint"
+
 axios.defaults.withCredentials = true
 
 function App() {
